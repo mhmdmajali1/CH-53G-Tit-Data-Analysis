@@ -1,0 +1,1028 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "TopLevel",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "AircraftType",
+    "AmplitudeUnits",
+    "PhaseUnits",
+    "SpeedUnits",
+    "TrackUnits"
+  ],
+  "properties": {
+    "AircraftType": {
+      "type": "string"
+    },
+    "AmplitudeUnits": {
+      "type": "string",
+      "description": "Units used for anything that has an amplitude in the document."
+    },
+    "PhaseUnits": {
+      "type": "string",
+      "description": "Units used for anything that has an angle or phase in the document."
+    },
+    "SpeedUnits": {
+      "type": "string",
+      "description": "Units used for anything that is a speed in the document."
+    },
+    "TrackUnits": {
+      "type": "string",
+      "description": "Units used for anything that represents distance in the document."
+    },
+    "Configurations": {
+      "type": "array",
+      "description": "Optional. Present only when one or more configurations exist.",
+      "items": {
+        "$ref": "#/definitions/Configuration"
+      }
+    },
+    "Aircraft": {
+      "type": "array",
+      "description": "Optional. Present only when one or more tail numbers exist.",
+      "items": {
+        "$ref": "#/definitions/Aircraft"
+      }
+    }
+  },
+  "definitions": {
+    "Configuration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Revision",
+        "Issue",
+        "UniqueIdentifier"
+      ],
+      "properties": {
+        "Revision": {
+          "type": "string"
+        },
+        "Issue": {
+          "type": "string"
+        },
+        "UniqueIdentifier": {
+          "type": "string",
+          "description": "Uniquely identifies a configuration. Used to link configurations used back to this."
+        },
+        "TestingTasks": {
+          "type": "array",
+          "description": "Optional. Present only when one or more testing tasks exist.",
+          "items": {
+            "$ref": "#/definitions/TestingTask"
+          }
+        }
+      }
+    },
+    "TestingTask": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "Name"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "description": "Uniquely identifies a testing task. Used to link testing task used back to this.",
+          "format": "int64"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "SensitivitySets": {
+          "type": "array",
+          "description": "Optional. Present only when one or more sensitivity sets exist.",
+          "items": {
+            "$ref": "#/definitions/SensitivitySet"
+          }
+        },
+        "Parts": {
+          "type": "array",
+          "description": "Optional. Present only when one or more parts exist.",
+          "items": {
+            "$ref": "#/definitions/Part"
+          }
+        },
+        "SolveProfiles": {
+          "type": "array",
+          "description": "Optional. Present only when one or more solve profiles exist.",
+          "items": {
+            "$ref": "#/definitions/SolveProfile"
+          }
+        }
+      }
+    },
+    "SensitivitySet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "Name",
+        "Sensitivities"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "description": "Uniquely identifies a sensitivity set.",
+          "format": "int64"
+        },
+        "Name": {
+          "type": "string",
+          "description": "Solve results will link to a sensitivity set using this name."
+        },
+        "Sensitivities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Sensitivity"
+          }
+        }
+      }
+    },
+    "Sensitivity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Part",
+        "Transducer",
+        "TestCondition",
+        "AdjustmentType",
+        "Sensitivity",
+        "Phase"
+      ],
+      "properties": {
+        "Part": {
+          "type": "string"
+        },
+        "Transducer": {
+          "type": "string"
+        },
+        "TestCondition": {
+          "type": "string"
+        },
+        "AdjustmentType": {
+          "type": "string"
+        },
+        "Sensitivity": {
+          "type": "number",
+          "format": "double"
+        },
+        "Phase": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "Part": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Part",
+        "DirectionOfRotation",
+        "NumberOfBlades",
+        "NumberOfAdjustmentTypes",
+        "Axes",
+        "BladeAngles",
+        "BladeRadii",
+        "PartAdjustmentTypes"
+      ],
+      "properties": {
+        "Part": {
+          "type": "string"
+        },
+        "DirectionOfRotation": {
+          "type": "string"
+        },
+        "NumberOfBlades": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "NumberOfAdjustmentTypes": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Axes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartAxis"
+          }
+        },
+        "BladeAngles": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "BladeRadii": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "PartAdjustmentTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartAdjustmentType"
+          }
+        }
+      }
+    },
+    "PartAxis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Axis",
+        "Transducer"
+      ],
+      "properties": {
+        "Axis": {
+          "type": "string"
+        },
+        "Transducer": {
+          "type": "string"
+        }
+      }
+    },
+    "PartAdjustmentType": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "AdjustmentType",
+        "MinimumAdjustment",
+        "MaximumAdjustment",
+        "PartAdjustmentPoints"
+      ],
+      "properties": {
+        "AdjustmentType": {
+          "type": "string"
+        },
+        "MinimumAdjustment": {
+          "type": "number",
+          "format": "double"
+        },
+        "MaximumAdjustment": {
+          "type": "number",
+          "format": "double"
+        },
+        "Granularity": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Optional. Present only when PartAdjustmentPoints contains one or more entries.",
+          "format": "double"
+        },
+        "PartAdjustmentPoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartAdjustmentPoint"
+          }
+        }
+      }
+    },
+    "PartAdjustmentPoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "AdjustmentPoint",
+        "MinimumSetting",
+        "MaximumSetting",
+        "AngleToPart"
+      ],
+      "properties": {
+        "AdjustmentPoint": {
+          "type": "string"
+        },
+        "MinimumSetting": {
+          "type": "number",
+          "format": "double"
+        },
+        "MaximumSetting": {
+          "type": "number",
+          "format": "double"
+        },
+        "AngleToPart": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "SolveProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ProfileName",
+        "Description",
+        "Part",
+        "StartingTemperature",
+        "Iterations",
+        "ReduceOppositeAdjustments",
+        "AdjustmentTypes",
+        "TestConditions"
+      ],
+      "properties": {
+        "ProfileName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Part": {
+          "type": "string"
+        },
+        "StartingTemperature": {
+          "type": "number",
+          "format": "double"
+        },
+        "Iterations": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "DecayPeriod": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Optional. Present only when a non default decay period is defined.",
+          "format": "int32"
+        },
+        "NegligibleBalance": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Optional. Present only when a non default negligible balance value is defined.",
+          "format": "double"
+        },
+        "NegligibleTrack": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Optional. Present only when a non default negligible track value is defined.",
+          "format": "double"
+        },
+        "ReduceOppositeAdjustments": {
+          "type": "boolean"
+        },
+        "AdjustmentTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SolveProfileAdjustmentType"
+          }
+        },
+        "TestConditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SolveProfileTestCondition"
+          }
+        }
+      }
+    },
+    "SolveProfileAdjustmentType": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "AdjustmentType",
+        "AdjustmentPositions"
+      ],
+      "properties": {
+        "AdjustmentType": {
+          "type": "string"
+        },
+        "CleanupMethod": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Optional. Present only when defined in solve profile.",
+          "format": "int32"
+        },
+        "CoarseGranularity": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Optional. Present only when defined in solve profile.",
+          "format": "double"
+        },
+        "FirstStep": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Optional. Present only when defined in solve profile.",
+          "format": "double"
+        },
+        "Buffer": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Optional. Present only when defined in solve profile.",
+          "format": "double"
+        },
+        "SolveLimitMinimum": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Optional. Present only when defined in solve profile.",
+          "format": "double"
+        },
+        "SolveLimitMaximum": {
+          "type": [
+            "null",
+            "number"
+          ],
+          "description": "Optional. Present only when defined in solve profile.",
+          "format": "double"
+        },
+        "AdjustmentPositions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SolveProfileAdjustmentPosition"
+          }
+        }
+      }
+    },
+    "SolveProfileAdjustmentPosition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "AdjustmentPosition",
+        "IsEnabledForSolve"
+      ],
+      "properties": {
+        "AdjustmentPosition": {
+          "type": "string"
+        },
+        "IsEnabledForSolve": {
+          "type": "boolean"
+        }
+      }
+    },
+    "SolveProfileTestCondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "TestCondition",
+        "BalanceAxes",
+        "Track"
+      ],
+      "properties": {
+        "TestCondition": {
+          "type": "string"
+        },
+        "BalanceAxes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SolveProfileBalanceAxis"
+          }
+        },
+        "Track": {
+          "$ref": "#/definitions/SolveProfileTrack"
+        }
+      }
+    },
+    "SolveProfileBalanceAxis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Axis",
+        "AxisNumber",
+        "Order",
+        "Limit",
+        "PenaltyFactor",
+        "SoftLimit",
+        "SoftPenaltyFactor",
+        "Weighting",
+        "IsEnabledForSolve"
+      ],
+      "properties": {
+        "Axis": {
+          "type": "string"
+        },
+        "AxisNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Order": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Limit": {
+          "type": "number",
+          "format": "double"
+        },
+        "PenaltyFactor": {
+          "type": "number",
+          "format": "double"
+        },
+        "SoftLimit": {
+          "type": "number",
+          "format": "double"
+        },
+        "SoftPenaltyFactor": {
+          "type": "number",
+          "format": "double"
+        },
+        "Weighting": {
+          "type": "number",
+          "format": "double"
+        },
+        "IsEnabledForSolve": {
+          "type": "boolean"
+        }
+      }
+    },
+    "SolveProfileTrack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Limit",
+        "PenaltyFactor",
+        "SoftLimit",
+        "SoftPenaltyFactor",
+        "Weighting",
+        "IsEnabledForSolve"
+      ],
+      "properties": {
+        "Limit": {
+          "type": "number",
+          "format": "double"
+        },
+        "PenaltyFactor": {
+          "type": "number",
+          "format": "double"
+        },
+        "SoftLimit": {
+          "type": "number",
+          "format": "double"
+        },
+        "SoftPenaltyFactor": {
+          "type": "number",
+          "format": "double"
+        },
+        "Weighting": {
+          "type": "number",
+          "format": "double"
+        },
+        "IsEnabledForSolve": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Aircraft": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "TailNumber"
+      ],
+      "properties": {
+        "TailNumber": {
+          "type": "string"
+        },
+        "Tests": {
+          "type": "array",
+          "description": "Optional. Present only when one or more tests exist.",
+          "items": {
+            "$ref": "#/definitions/Test"
+          }
+        }
+      }
+    },
+    "Test": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "TestNumber",
+        "Started",
+        "Ended"
+      ],
+      "properties": {
+        "TestNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Started": {
+          "type": "string",
+          "description": "Timestamp formatted as YYYY-MM-DDTHH:mm:ss[.fraction]"
+        },
+        "Ended": {
+          "type": "string",
+          "description": "Timestamp formatted as YYYY-MM-DDTHH:mm:ss[.fraction]"
+        },
+        "Flights": {
+          "type": "array",
+          "description": "Optional. Present only when one or more flights exist.",
+          "items": {
+            "$ref": "#/definitions/Flight"
+          }
+        }
+      }
+    },
+    "Flight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ConfigurationUsed",
+        "FlightNumber",
+        "Started",
+        "Ended"
+      ],
+      "properties": {
+        "ConfigurationUsed": {
+          "type": "string",
+          "description": "References Configuration.UniqueIdentifier."
+        },
+        "TestingTaskUsed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Optional. References TestingTask.Id. Null if failed to link a testing task to the flight.",
+          "format": "int64"
+        },
+        "FlightNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Started": {
+          "type": "string",
+          "description": "Timestamp formatted as YYYY-MM-DDTHH:mm:ss[.fraction]"
+        },
+        "Ended": {
+          "type": "string",
+          "description": "Timestamp formatted as YYYY-MM-DDTHH:mm:ss[.fraction]"
+        },
+        "Location": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "description": "Null if no location linked to the flight."
+        },
+        "QuestionAnswers": {
+          "type": "array",
+          "description": "Optional. Present only when one or more answered question exist.",
+          "items": {
+            "$ref": "#/definitions/QuestionAnswer"
+          }
+        },
+        "Notes": {
+          "type": "array",
+          "description": "Optional. Present only when one or more notes exist.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CurrentSettings": {
+          "type": "array",
+          "description": "Optional. Present only when one or more settings data exists.",
+          "items": {
+            "$ref": "#/definitions/SettingsData"
+          }
+        },
+        "BalanceData": {
+          "type": "array",
+          "description": "Optional. Present only when one or more balance data exists.",
+          "items": {
+            "$ref": "#/definitions/BalanceData"
+          }
+        },
+        "TrackData": {
+          "type": "array",
+          "description": "Optional. Present only when one or more track data exists.",
+          "items": {
+            "$ref": "#/definitions/TrackData"
+          }
+        },
+        "FftData": {
+          "type": "array",
+          "description": "Optional. Present only when one or more FFT data exists.",
+          "items": {
+            "$ref": "#/definitions/FftData"
+          }
+        },
+        "SolveResults": {
+          "type": "array",
+          "description": "Optional. Present only when one or more solve results exist.",
+          "items": {
+            "$ref": "#/definitions/SolveData"
+          }
+        }
+      }
+    },
+    "QuestionAnswer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Question",
+        "Answer"
+      ],
+      "properties": {
+        "Question": {
+          "type": "string"
+        },
+        "Answer": {
+          "type": "string"
+        }
+      }
+    },
+    "SettingsData": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Created",
+        "Parts"
+      ],
+      "properties": {
+        "Created": {
+          "type": "string",
+          "description": "Timestamp formatted as YYYY-MM-DDTHH:mm:ss[.fraction]"
+        },
+        "Parts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SettingsPart"
+          }
+        }
+      }
+    },
+    "SettingsPart": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Part",
+        "AdjustmentTypes"
+      ],
+      "properties": {
+        "Part": {
+          "type": "string"
+        },
+        "AdjustmentTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SettingsPartAdjustmentType"
+          }
+        }
+      }
+    },
+    "SettingsPartAdjustmentType": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "AdjustmentType",
+        "AdjustmentPoints"
+      ],
+      "properties": {
+        "AdjustmentType": {
+          "type": "string"
+        },
+        "AdjustmentPoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SettingsPartAdjustmentPoint"
+          }
+        }
+      }
+    },
+    "SettingsPartAdjustmentPoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "AdjustmentPoint",
+        "Value"
+      ],
+      "properties": {
+        "AdjustmentPoint": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "BalanceData": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "TestCondition",
+        "Part",
+        "Axis",
+        "Amplitude",
+        "Phase",
+        "Created"
+      ],
+      "properties": {
+        "TestCondition": {
+          "type": "string"
+        },
+        "Part": {
+          "type": "string"
+        },
+        "Axis": {
+          "type": "string"
+        },
+        "Amplitude": {
+          "type": "number",
+          "format": "double"
+        },
+        "Phase": {
+          "type": "number",
+          "description": "Measured phase.",
+          "format": "double"
+        },
+        "Created": {
+          "type": "string",
+          "description": "Timestamp formatted as YYYY-MM-DDTHH:mm:ss[.fraction]"
+        }
+      }
+    },
+    "TrackData": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "TestCondition",
+        "Part",
+        "TrackSplit",
+        "BladeHeights",
+        "Created"
+      ],
+      "properties": {
+        "TestCondition": {
+          "type": "string"
+        },
+        "Part": {
+          "type": "string"
+        },
+        "TrackSplit": {
+          "type": "number",
+          "format": "double"
+        },
+        "BladeHeights": {
+          "type": "array",
+          "description": "Vs average.",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "LeadLagAngles": {
+          "type": "array",
+          "description": "Optional. Not present in predicted track data.",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "LeadLagDistance": {
+          "type": "array",
+          "description": "Optional. Not present in predicted track data. Absolute lead/lag distance.",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "Created": {
+          "type": "string",
+          "description": "Timestamp formatted as YYYY-MM-DDTHH:mm:ss[.fraction]"
+        }
+      }
+    },
+    "FftData": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "FftRange",
+        "TestCondition",
+        "Part",
+        "Created",
+        "Transducers"
+      ],
+      "properties": {
+        "FftRange": {
+          "type": "string"
+        },
+        "TestCondition": {
+          "type": "string"
+        },
+        "Part": {
+          "type": "string"
+        },
+        "Created": {
+          "type": "string",
+          "description": "Timestamp formatted as YYYY-MM-DDTHH:mm:ss[.fraction]"
+        },
+        "Transducers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FftTransducerData"
+          }
+        }
+      }
+    },
+    "FftTransducerData": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Transducer",
+        "Samples"
+      ],
+      "properties": {
+        "Transducer": {
+          "type": "string"
+        },
+        "Samples": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FftSample"
+          }
+        }
+      }
+    },
+    "FftSample": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Frequency",
+        "Amplitude",
+        "Phase"
+      ],
+      "properties": {
+        "Orders": {
+          "type": "array",
+          "description": "Optional. Present only if the sample has one or more named orders.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Frequency": {
+          "type": "number",
+          "format": "double"
+        },
+        "Amplitude": {
+          "type": "number",
+          "format": "double"
+        },
+        "Phase": {
+          "type": "number",
+          "description": "Measured phase.",
+          "format": "double"
+        }
+      }
+    },
+    "SolveData": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "SolveProfile",
+        "SensitivitySetUsed",
+        "Part",
+        "Created",
+        "Adjustments"
+      ],
+      "properties": {
+        "SolveProfile": {
+          "type": "string",
+          "description": "References SolveProfile.ProfileName"
+        },
+        "SensitivitySetUsed": {
+          "type": "string",
+          "description": "References SensitivitySet.Name. Empty string if the default sensitivity set is used."
+        },
+        "Part": {
+          "type": "string"
+        },
+        "Created": {
+          "type": "string",
+          "description": "Timestamp formatted as YYYY-MM-DDTHH:mm:ss[.fraction]"
+        },
+        "Adjustments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SettingsData"
+          }
+        },
+        "PredictedBalance": {
+          "type": "array",
+          "description": "Optional. Present only if predicted balance is available.",
+          "items": {
+            "$ref": "#/definitions/BalanceData"
+          }
+        },
+        "PredictedTrack": {
+          "type": "array",
+          "description": "Optional. Present only if predicted track is available.",
+          "items": {
+            "$ref": "#/definitions/TrackData"
+          }
+        }
+      }
+    }
+  }
+}
