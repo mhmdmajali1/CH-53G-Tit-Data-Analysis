@@ -325,47 +325,6 @@ means at least one of `Hovern OGE` / `90 Knoten` / `110 Knoten` / `130 Knoten` i
 
 ---
 
-## Missing Helpers to Add
-
-Two helper functions are referenced throughout the codebase (`toItems` in
-`fftdataavg.m`/`collectHarmonicAmplitudes.m`, and `ternary` in
-`checkFlightCompliance.m`) but were not included in this upload batch. Add them as their
-own `.m` files:
-
-**`toItems.m`:**
-```matlab
-function items = toItems(x)
-    % Returns a cell array of individual elements, regardless of whether x
-    % is a cell array, a struct array, a scalar struct, or empty.
-    % Unlike [x{:}], this never requires matching fields, since it doesn't
-    % concatenate anything -- just wraps each element for safe iteration.
-    if isempty(x)
-        items = {};
-    elseif iscell(x)
-        items = x;
-    else
-        n = numel(x);
-        items = cell(n, 1);
-        for idx = 1:n
-            items{idx} = x(idx);
-        end
-    end
-end
-```
-
-**`ternary.m`:**
-```matlab
-function out = ternary(cond, a, b)
-    if cond
-        out = a;
-    else
-        out = b;
-    end
-end
-```
-
----
-
 ## Known Limitations & Assumptions
 
 - **`checkSettingsChanged.m` (Signal 2) has not been independently validated** against
@@ -399,11 +358,10 @@ end
 
 1. Add the `84+97` exact-duplicate fix to `step1.m` (before Step 3a) and re-run a full
    tail-number-duplicate sweep to confirm no others remain.
-2. Add `toItems.m` and `ternary.m` to the repository (see above).
-3. Manually audit the "unresolved non-compliant tests" list from Step 6's output.
-4. Validate `checkSettingsChanged.m` against any available known-good repair records.
-5. Decide the final disposition of `data.AndreasSeparatedTests`.
-6. Re-run Step 6 with the gap threshold varied (e.g. 30/45/60 days) to test sensitivity.
-7. If moving to the full production file, benchmark load time/memory before assuming
+2. Manually audit the "unresolved non-compliant tests" list from Step 6's output.
+3. Validate `checkSettingsChanged.m` against any available known-good repair records.
+4. Decide the final disposition of `data.AndreasSeparatedTests`.
+5. Re-run Step 6 with the gap threshold varied (e.g. 30/45/60 days) to test sensitivity.
+6. If moving to the full production file, benchmark load time/memory before assuming
    `step1.m` will run as-is; consider a pre-processing step to strip `FftData` if not
    needed for a given run.
